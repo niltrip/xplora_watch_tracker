@@ -1,0 +1,9 @@
+{
+  "name": "Xplora Watch Tracker",
+  "domains": ["device_tracker", "sensor"],
+  "documentation": "https://github.com/mspinapolice/xplora_watch_tracker",
+  "issue_tracker": "https://github.com/mspinapolice/xplora_watch_tracker/issues",
+  "homeassistant": "2024.1.0",
+  "codeowners": ["@mspinapolice"],
+  "render_readme": true
+}

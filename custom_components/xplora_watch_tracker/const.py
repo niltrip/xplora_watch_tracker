@@ -1,0 +1,26 @@
+"""Constants for Xplora Watch Tracker."""
+
+DOMAIN = "xplora_watch_tracker"
+
+# API
+ENDPOINT   = "https://api.prod.myxplora.com/api"
+API_KEY    = "63fa1d10289711ea80b5992f808043b2"
+API_SECRET = "27ed7670379511eab4a0f367f8eb1312"
+
+# Config entry keys
+CONF_EMAIL         = "email"
+CONF_PASSWORD      = "password"
+CONF_TIMEZONE      = "timezone"
+CONF_LANGUAGE      = "language"
+CONF_WATCHES       = "watches"        # list of {wuid, name}
+CONF_SCAN_INTERVAL = "scan_interval"
+
+# Defaults
+DEFAULT_SCAN_INTERVAL = 180   # seconds (3 minutes)
+MIN_SCAN_INTERVAL     = 60    # seconds (1 minute)
+MAX_SCAN_INTERVAL     = 600   # seconds (10 minutes)
+DEFAULT_TIMEZONE      = "America/New_York"
+DEFAULT_LANGUAGE      = "en-US"
+
+# Platforms
+PLATFORMS = ["device_tracker", "sensor"]
