@@ -2,5 +2,7 @@
   "hacs": "2.0.5",
   "homeassistant": "2024.1.0",
   "name": "Xplora Watch Tracker",
-  "render_readme": true
+  "render_readme": true,
+  "zip_release": false,
+  "content_in_root": false
 }
