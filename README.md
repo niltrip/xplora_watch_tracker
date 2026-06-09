@@ -2,6 +2,16 @@
 
 A Home Assistant custom integration for tracking Xplora kids smartwatches. Provides GPS location, battery percentage, and charging state for all watches linked to your Xplora account.
 
+[![GitHub release](https://img.shields.io/github/v/release/mspinapolice/xplora_watch_tracker)](https://github.com/mspinapolice/xplora_watch_tracker/releases/latest)
+[![GitHub downloads](https://img.shields.io/github/downloads/mspinapolice/xplora_watch_tracker/total)](https://github.com/mspinapolice/xplora_watch_tracker/releases)
+[![GitHub issues](https://img.shields.io/github/issues/mspinapolice/xplora_watch_tracker)](https://github.com/mspinapolice/xplora_watch_tracker/issues)
+[![Python](https://img.shields.io/badge/python-3.12%2B-blue)](https://www.python.org/)
+[![hassfest](https://img.shields.io/github/actions/workflow/status/mspinapolice/xplora_watch_tracker/hassfest.yml?label=hassfest)](https://github.com/mspinapolice/xplora_watch_tracker/actions)
+[![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://hacs.xyz/)
+[![License](https://img.shields.io/github/license/mspinapolice/xplora_watch_tracker)](https://github.com/mspinapolice/xplora_watch_tracker/blob/main/LICENSE)
+
+---
+
 ![Xplora](https://raw.githubusercontent.com/mspinapolice/xplora_watch_tracker/main/custom_components/xplora_watch_tracker/brand/icon.png)
 
 ## Features
@@ -116,7 +126,7 @@ Changes take effect immediately via an automatic integration reload.
 - **No real-time push** — location is polled on a schedule, not pushed from the watch
 - **GPS accuracy varies** — the watch reports `GPS`, `WIFI`, or `LBS` fix types with varying accuracy
 - **API dependency** — this integration uses Xplora's private API. If Xplora changes their API, the integration may stop working until updated
-- **Email + password only** — accounts using Google or Apple SSO cannot authenticate via the API
+- **Email + password only** — attempts using guardian's phone number were usuccesful authenticating via the API
 
 ## License
 
