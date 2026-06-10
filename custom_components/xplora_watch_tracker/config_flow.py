@@ -175,43 +175,49 @@ class XploraOptionsFlow(config_entries.OptionsFlow):
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
         """Show the options form."""
+        errors: dict[str, str] = {}
+
         if user_input is not None:
-            # Extract and save updated watch names back into config data
-            watches = list(self._entry.data.get(CONF_WATCHES, []))
-            updated_watches = []
-            for watch in watches:
-                wuid = watch["wuid"]
-                friendly = user_input.pop(f"name_{wuid}", watch["name"]).strip()
-                updated_watches.append({"wuid": wuid, "name": friendly})
-
-            self.hass.config_entries.async_update_entry(
-                self._entry,
-                data={**self._entry.data, CONF_WATCHES: updated_watches},
-            )
-
             endpoint = user_input.get(
                 CONF_ENDPOINT,
                 self._entry.options.get(CONF_ENDPOINT, DEFAULT_ENDPOINT),
             ).strip()
-            api_key = user_input.get(
-                CONF_API_KEY,
-                self._entry.options.get(CONF_API_KEY, DEFAULT_API_KEY),
-            ).strip()
-            api_secret = user_input.get(
-                CONF_API_SECRET,
-                self._entry.options.get(CONF_API_SECRET, DEFAULT_API_SECRET),
-            ).strip()
 
-            # Save poll interval and API connection options — triggers reload
-            return self.async_create_entry(
-                title="",
-                data={
-                    CONF_SCAN_INTERVAL: user_input[CONF_SCAN_INTERVAL],
-                    CONF_ENDPOINT: endpoint,
-                    CONF_API_KEY: api_key,
-                    CONF_API_SECRET: api_secret,
-                },
-            )
+            if not endpoint.startswith("https://"):
+                errors["endpoint"] = "endpoint_must_use_https"
+            
+            if not errors:
+                # Extract and save updated watch names back into config data
+                watches = list(self._entry.data.get(CONF_WATCHES, []))
+                updated_watches = []
+                for watch in watches:
+                    wuid = watch["wuid"]
+                    friendly = user_input.pop(f"name_{wuid}", watch["name"]).strip()
+                    updated_watches.append({"wuid": wuid, "name": friendly})
+
+                self.hass.config_entries.async_update_entry(
+                    self._entry,
+                    data={**self._entry.data, CONF_WATCHES: updated_watches},
+                )
+
+                api_key = user_input.get(
+                    CONF_API_KEY,
+                    self._entry.options.get(CONF_API_KEY, DEFAULT_API_KEY),
+                ).strip()
+                api_secret = user_input.get(
+                    CONF_API_SECRET,
+                    self._entry.options.get(CONF_API_SECRET, DEFAULT_API_SECRET),
+                ).strip()
+
+                return self.async_create_entry(
+                    title="",
+                    data={
+                        CONF_SCAN_INTERVAL: user_input[CONF_SCAN_INTERVAL],
+                        CONF_ENDPOINT: endpoint,
+                        CONF_API_KEY: api_key,
+                        CONF_API_SECRET: api_secret,
+                    },
+                )
 
         current_interval = self._entry.options.get(CONF_SCAN_INTERVAL, DEFAULT_SCAN_INTERVAL)
         current_endpoint = self._entry.options.get(CONF_ENDPOINT, DEFAULT_ENDPOINT)
@@ -235,12 +241,12 @@ class XploraOptionsFlow(config_entries.OptionsFlow):
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(fields),
+            errors=errors,
             description_placeholders={
                 "min_interval": str(MIN_SCAN_INTERVAL),
                 "max_interval": str(MAX_SCAN_INTERVAL),
             },
         )
-
 
 class CannotConnect(HomeAssistantError):
     """Error to indicate connection failure."""

@@ -78,6 +78,8 @@ class XploraApiClient:
         api_secret: str = API_SECRET,
         session: aiohttp.ClientSession | None = None,
     ) -> None:
+        if not endpoint.startswith("https://"):
+            raise ValueError(f"Endpoint must use HTTPS, got: {endpoint}")
         self._email      = email
         self._password   = password
         self._timezone   = timezone
@@ -148,7 +150,8 @@ class XploraApiClient:
 
     async def login(self) -> list[dict[str, str]]:
         """Authenticate and return list of watches [{wuid, name}]."""
-        pw_md5 = hashlib.md5(self._password.encode()).hexdigest()
+        # Xplora API requires MD5-hashed password client-side.  If/when they change this, we'll get a login failure and can update accordingly.
+        pw_md5 = hashlib.md5(self._password.encode()).hexdigest()  # noqa: S324
 
         data = await self._post(
             _LOGIN_MUTATION,
