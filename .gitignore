@@ -18,7 +18,7 @@ env/
 venv/
 
 # IDE
-.vscode/
+.vscode/*
 !.vscode/tasks.json
 .idea/
 *.swp
@@ -37,3 +37,4 @@ htmlcov/
 # HA dev artifacts
 *.log
 config/*
+!config/configuration.yaml
