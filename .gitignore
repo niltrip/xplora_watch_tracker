@@ -19,9 +19,11 @@ venv/
 
 # IDE
 .vscode/
+!.vscode/tasks.json
 .idea/
 *.swp
 *.swo
+.ruff_cache
 
 # OS
 .DS_Store
@@ -34,3 +36,4 @@ htmlcov/
 
 # HA dev artifacts
 *.log
+config/*
